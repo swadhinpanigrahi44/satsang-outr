@@ -15,7 +15,7 @@ const SessionRow = ({ session }: SessionRowProps) => (
       style={{ background: 'hsl(var(--brand-secondary-mid))' }}
     >
       <h3 className="font-heading text-white font-bold text-base mb-1">{session.title}</h3>
-      {session.description && (
+      {session.description && !session.subSpeakers?.length && (
         <p className="text-[hsl(var(--muted-foreground))] text-sm">{session.description}</p>
       )}
       {session.subSpeakers && session.subSpeakers.length > 0 && (
