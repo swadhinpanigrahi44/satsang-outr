@@ -1,15 +1,16 @@
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { CalendarDays, MapPin, ArrowRight, ExternalLink } from "lucide-react";
-import seminarGroup from "@/assets/seminar-group.png";
-import seminarInteraction from "@/assets/seminar-interaction.png";
-import seminarPresentation from "@/assets/seminar-presentation.png";
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { CalendarDays, MapPin, ArrowRight } from 'lucide-react';
+import seminarGroup from '@/assets/seminar-group.png';
+import seminarInteraction from '@/assets/seminar-interaction.png';
+import seminarPresentation from '@/assets/seminar-presentation.png';
+import { SaffronBadge } from '@/components/shared/elements';
 
 const photos = [seminarGroup, seminarInteraction, seminarPresentation];
 
 const UpcomingEventCard = () => {
   return (
-    <section className="py-20 bg-[#243447]">
+    <section className="py-20" style={{ background: 'hsl(var(--background))' }}>
       <div className="container mx-auto px-4">
         <motion.div
           className="max-w-4xl mx-auto"
@@ -18,12 +19,12 @@ const UpcomingEventCard = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-<h2 className="font-heading text-3xl md:text-6xl font-bold text-gradient-saffron text-center mb-10">            
-  Events 
+          <h2 className="font-heading text-3xl md:text-6xl font-bold text-gradient-saffron text-center mb-10">
+            Events
           </h2>
 
           <motion.div
-            className="rounded-2xl overflow-hidden border border-primary/20 bg[-#0b1e3a] shadow-lg"
+            className="rounded-2xl overflow-hidden border border-[hsl(var(--brand-primary)/0.2)] bg-card shadow-lg"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -44,9 +45,7 @@ const UpcomingEventCard = () => {
             </div>
 
             <div className="bg-saffron-gradient p-4 md:p-6 text-primary-foreground">
-              <span className="inline-block px-3 py-1 rounded-full bg-White/20 text-sm font-medium mb-3">
-                🔴 Live 
-              </span>
+              <SaffronBadge variant="solid" className="mb-3">Registration Closed</SaffronBadge>
               <h3 className="font-heading text-2xl md:text-3xl font-bold">
                 🎓 Comprehensive Career Counselling Seminar
               </h3>
@@ -59,7 +58,7 @@ const UpcomingEventCard = () => {
                   <CalendarDays size={16} /> Date: 28 March 2026
                 </span>
                 <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium text-sm">
-                  <MapPin size={16} /> Convention hall SOA Campus 2 Near sum Hospital,Bhubaneswar
+                  <MapPin size={16} /> Convention hall SOA Campus 2 Near sum Hospital, Bhubaneswar
                 </span>
               </div>
 
@@ -68,15 +67,14 @@ const UpcomingEventCard = () => {
               </p>
 
               <div className="flex justify-center pt-2">
-  <Link
-    to="/events"
-    className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-primary text-primary font-medium hover:bg-primary/5 transition-colors"
-  >
-    View All Events <ArrowRight size={16} />
-  </Link>
-</div>
+                <Link
+                  to="/events"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-primary text-primary font-medium hover:bg-primary/5 transition-colors"
+                >
+                  View All Events <ArrowRight size={16} />
+                </Link>
+              </div>
             </div>
-          
           </motion.div>
         </motion.div>
       </div>
