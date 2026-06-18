@@ -1,0 +1,96 @@
+/**
+ * SatsangOUTR Design Tokens — Reference Copy
+ *
+ * This file is documentation only. The authoritative token definitions
+ * live in src/index.css :root. Do NOT import this file into the app.
+ *
+ * Last updated: Task 1 — Design Foundation
+ */
+
+:root {
+  /* === BRAND PRIMARIES === */
+  --brand-primary: 38 93% 41%;        /* Sacred Saffron Gold  ≈ #C8860A */
+  --brand-primary-light: 40 85% 55%;  /* Light saffron        ≈ #E8A832 */
+  --brand-primary-lighter: 42 80% 88%;/* Tint / backgrounds   ≈ #F5E0B0 */
+  --brand-primary-dark: 35 90% 28%;   /* Deep saffron         ≈ #8A5808 */
+
+  --brand-secondary: 215 38% 18%;     /* Sacred Indigo        ≈ #1C2A3F */
+  --brand-secondary-mid: 215 35% 22%; /* Mid indigo           ≈ #243447 */
+  --brand-secondary-light: 215 30% 28%;/* Light indigo        ≈ #2E4060 */
+  --brand-secondary-dark: 218 45% 10%;/* Deep indigo          ≈ #0D1620 */
+
+  /* === SHADCN TOKENS — remapped to brand palette === */
+  --background: 218 45% 10%;          /* deep indigo page bg */
+  --foreground: 42 60% 92%;           /* warm ivory text */
+
+  --card: 215 38% 18%;
+  --card-foreground: 42 60% 92%;
+
+  --popover: 215 38% 18%;
+  --popover-foreground: 42 60% 92%;
+
+  --primary: 38 93% 41%;
+  --primary-foreground: 218 45% 10%;
+
+  --secondary: 215 35% 22%;
+  --secondary-foreground: 42 60% 92%;
+
+  --muted: 215 30% 28%;
+  --muted-foreground: 40 20% 65%;
+
+  --accent: 38 93% 41%;
+  --accent-foreground: 218 45% 10%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 42 60% 92%;
+
+  --border: 215 30% 28%;
+  --input: 215 30% 28%;
+  --ring: 38 93% 41%;
+
+  --radius: 0.5rem;
+
+  /* === TEXT HIERARCHY === */
+  --text-primary: 42 60% 92%;         /* warm ivory */
+  --text-secondary: 40 25% 70%;       /* muted warm */
+  --text-muted: 215 15% 55%;          /* subtle */
+
+  /* === SURFACE ELEVATIONS === */
+  --surface: 215 38% 18%;
+  --surface-elevated: 215 35% 22%;
+  --surface-deep: 218 45% 10%;
+
+  /* === DECORATIVE === */
+  --gold-glow: 0 4px 24px rgba(200, 134, 10, 0.25);
+
+  /* === SIDEBAR === */
+  --sidebar-background: 215 38% 18%;
+  --sidebar-foreground: 42 60% 92%;
+  --sidebar-primary: 38 93% 41%;
+  --sidebar-primary-foreground: 218 45% 10%;
+  --sidebar-accent: 215 35% 22%;
+  --sidebar-accent-foreground: 42 60% 92%;
+  --sidebar-border: 215 30% 28%;
+  --sidebar-ring: 38 93% 41%;
+}
+
+/* === FONTS ===
+ * heading: "Bodoni Moda SC" — weight 400, 700, 800 (italic 400 available)
+ * body:    "Inter"          — weight 300, 400, 500, 600, 700
+ *
+ * Loaded via <link> in index.html (Google Fonts CDN).
+ * Tailwind aliases: font-heading, font-body
+ */
+
+/* === UTILITY CLASSES ===
+ * .text-gradient-gold     — saffron gold gradient text
+ * .text-gradient-saffron  — same as above (backward compat)
+ * .bg-saffron-gradient    — gold-to-dark-gold background
+ * .bg-gold-gradient       — same as above (new name)
+ * .shadow-gold            — gold glow box shadow
+ * .border-gold            — semi-transparent gold border
+ * .bg-saffron-light       — lighter tint background
+ * .bg-cream               — near-white warm background
+ * .shadow-saffron         — alias for shadow-gold (backward compat)
+ * .border-saffron         — alias for border-gold (backward compat)
+ */

@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['"Playfair Display"', 'Georgia', 'serif'],
-        body: ['"Lato"', 'system-ui', 'sans-serif'],
+        heading: ['"Bodoni Moda SC"', 'Georgia', 'serif'],
+        body: ['"Inter"', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -51,14 +51,25 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        saffron: {
-          DEFAULT: "hsl(var(--saffron))",
-          light: "hsl(var(--saffron-light))",
-          dark: "hsl(var(--saffron-dark))",
+        'brand-primary': {
+          DEFAULT: 'hsl(var(--brand-primary))',
+          light: 'hsl(var(--brand-primary-light))',
+          lighter: 'hsl(var(--brand-primary-lighter))',
+          dark: 'hsl(var(--brand-primary-dark))',
         },
-        gold: "hsl(var(--gold))",
-        cream: "hsl(var(--cream))",
-        "warm-gray": "hsl(var(--warm-gray))",
+        'brand-secondary': {
+          DEFAULT: 'hsl(var(--brand-secondary))',
+          mid: 'hsl(var(--brand-secondary-mid))',
+          light: 'hsl(var(--brand-secondary-light))',
+          dark: 'hsl(var(--brand-secondary-dark))',
+        },
+        // Keep existing aliases for backward compat:
+        saffron: {
+          DEFAULT: 'hsl(var(--brand-primary))',
+          light: 'hsl(var(--brand-primary-lighter))',
+          dark: 'hsl(var(--brand-primary-dark))',
+        },
+        gold: 'hsl(var(--brand-primary-light))',
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
