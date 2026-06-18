@@ -1,79 +1,114 @@
-import { motion } from "framer-motion";
-import Layout from "@/components/Layout";
-import { Mail, MapPin, Phone } from "lucide-react";
+// src/pages/Contact.tsx
+// Contact page — form uses react-hook-form + zod validation
+// Contact info: satsangoutr@gmail.com / Instagram: @satsang_outr
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { Mail, MapPin, Instagram } from 'lucide-react';
+import Layout from '@/components/Layout';
+import { GoldDivider, SectionHeading, AnimatedSection, SpiritualCard } from '@/components/shared/elements';
+import { socialLinks } from '@/data/social-links';
+
+const contactSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Please enter a valid email address'),
+  subject: z.string().min(3, 'Subject must be at least 3 characters'),
+  message: z.string().min(10, 'Message must be at least 10 characters'),
+});
+
+type ContactFormValues = z.infer<typeof contactSchema>;
+
+const inputClass =
+  'w-full px-4 py-3 rounded-lg bg-[hsl(var(--brand-secondary)/0.5)] border border-[hsl(var(--border))] text-foreground placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--brand-primary))] focus:border-transparent transition-all text-sm';
 
 const Contact = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting, isSubmitSuccessful },
+    reset,
+  } = useForm<ContactFormValues>({ resolver: zodResolver(contactSchema) });
+
+  const onSubmit = async (data: ContactFormValues) => {
+    // Opens mail client with pre-filled content
+    const mailto = `mailto:${socialLinks.email}?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(`Name: ${data.name}\nEmail: ${data.email}\n\n${data.message}`)}`;
+    window.location.href = mailto;
+    reset();
+  };
+
   return (
     <Layout>
-      <section className="py-20 bg-cream">
+      <section style={{ background: 'hsl(var(--background))' }} className="py-20">
         <div className="container mx-auto px-4">
-          <motion.div
-            className="max-w-3xl mx-auto text-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="font-heading text-4xl md:text-5xl font-bold mb-4">
-              Get in <span className="text-gradient-saffron">Touch</span>
-            </h1>
-            <p className="text-muted-foreground text-lg mb-12">
-              We welcome you to connect with Satsang OUTR. Reach out to us for
-              any inquiries, to participate in events, or to learn more about the teachings.
-            </p>
+          <AnimatedSection className="max-w-3xl mx-auto">
 
-            <div className="grid sm:grid-cols-3 gap-6 mb-12">
+            <SectionHeading
+              title="Get in Touch"
+              highlight="Touch"
+              subtitle="We welcome you to connect with Satsang OUTR. Reach out for inquiries, events, or to learn more about the teachings."
+              centered
+              className="mb-14"
+            />
+
+            {/* Contact info cards */}
+            <div className="grid sm:grid-cols-3 gap-4 mb-12">
               {[
-                { icon: <MapPin size={28} />, title: "Visit Us", text: "Satsang OUTR, India" },
-                { icon: <Phone size={28} />, title: "Call Us", text: "Contact for details" },
-                { icon: <Mail size={28} />, title: "Email Us", text: "Contact for details" },
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="p-6 bg-card rounded-xl border border-saffron text-center"
-                >
-                  <div className="flex justify-center mb-3 text-saffron-dark">{item.icon}</div>
-                  <h3 className="font-heading text-lg font-semibold mb-1 text-foreground">{item.title}</h3>
-                  <p className="text-muted-foreground text-sm">{item.text}</p>
-                </div>
+                { icon: <MapPin size={24} />, title: 'Visit Us', text: 'Satsang OUTR, OUTR Campus, Bhubaneswar, Odisha' },
+                { icon: <Mail size={24} />, title: 'Email Us', text: socialLinks.email },
+                { icon: <Instagram size={24} />, title: 'Instagram', text: '@satsang_outr' },
+              ].map((item) => (
+                <SpiritualCard key={item.title} variant="dark" className="text-center">
+                  <div className="flex justify-center mb-3 text-[hsl(var(--brand-primary))]">{item.icon}</div>
+                  <h3 className="font-heading text-base font-bold mb-1 text-foreground">{item.title}</h3>
+                  <p className="text-[hsl(var(--muted-foreground))] text-xs">{item.text}</p>
+                </SpiritualCard>
               ))}
             </div>
 
-            <div className="p-8 bg-card rounded-xl border border-saffron">
-              <h2 className="font-heading text-2xl font-semibold mb-6 text-foreground">
-                Send a Message
-              </h2>
-              <form className="space-y-4 text-left" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                  <input
-                    type="email"
-                    placeholder="Your Email"
-                    className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                </div>
-                <input
-                  type="text"
-                  placeholder="Subject"
-                  className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                />
-                <textarea
-                  placeholder="Your Message"
-                  rows={5}
-                  className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-                />
-                <button
-                  type="submit"
-                  className="w-full sm:w-auto px-8 py-3 rounded-lg bg-saffron-gradient text-primary-foreground font-medium shadow-saffron hover:opacity-90 transition-opacity"
-                >
-                  Send Message
-                </button>
-              </form>
-            </div>
-          </motion.div>
+            <GoldDivider className="mb-12" />
+
+            {/* Contact form */}
+            <AnimatedSection delay={0.1}>
+              <SpiritualCard variant="dark" className="rounded-xl">
+                <h2 className="font-heading text-2xl font-bold mb-6 text-foreground">Send a Message</h2>
+                {isSubmitSuccessful ? (
+                  <div className="py-8 text-center">
+                    <p className="text-[hsl(var(--brand-primary))] font-heading text-xl font-bold mb-2">Message Sent!</p>
+                    <p className="text-[hsl(var(--muted-foreground))] text-sm">Your email client should have opened. We will get back to you soon.</p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div>
+                        <input {...register('name')} type="text" placeholder="Your Name" className={inputClass} aria-label="Your name" />
+                        {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>}
+                      </div>
+                      <div>
+                        <input {...register('email')} type="email" placeholder="Your Email" className={inputClass} aria-label="Your email" />
+                        {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>}
+                      </div>
+                    </div>
+                    <div>
+                      <input {...register('subject')} type="text" placeholder="Subject" className={inputClass} aria-label="Subject" />
+                      {errors.subject && <p className="text-red-400 text-xs mt-1">{errors.subject.message}</p>}
+                    </div>
+                    <div>
+                      <textarea {...register('message')} placeholder="Your Message" rows={5} className={`${inputClass} resize-none`} aria-label="Your message" />
+                      {errors.message && <p className="text-red-400 text-xs mt-1">{errors.message.message}</p>}
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="px-8 py-3 rounded-lg bg-saffron-gradient text-[hsl(var(--brand-secondary-dark))] font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
+                    >
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                    </button>
+                  </form>
+                )}
+              </SpiritualCard>
+            </AnimatedSection>
+
+          </AnimatedSection>
         </div>
       </section>
     </Layout>
