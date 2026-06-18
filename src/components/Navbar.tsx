@@ -1,96 +1,118 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import logo from "@/assets/logo.jpeg";
-
-const navItems = [
-  { label: "Home", to: "/" },
-  { label: "Events", to: "/events" },
-   
-  
-];
+// src/components/Navbar.tsx
+// Navigation bar — reads all nav items from src/data/navigation.ts
+// Add new pages to navItems there, not here
+import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { navItems } from '@/data/navigation';
+import { siteConfig } from '@/data/site-config';
+import { socialLinks } from '@/data/social-links';
+import logo from '@/assets/logo.jpeg';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
 
+  const isActive = (to: string) => location.pathname === to;
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-text-gradient-saffron/90 backdrop-blur-md border-b border-[#243447]">
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 border-b border-[hsl(var(--brand-secondary-light))]"
+      style={{ background: 'hsl(var(--brand-secondary-dark) / 0.95)', backdropFilter: 'blur(12px)' }}
+      role="navigation"
+      aria-label="Main navigation"
+    >
       <div className="container mx-auto px-4 flex items-center justify-between h-16 md:h-20">
-        <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="Satsang OUTR Logo" className="w-12 h-12 rounded-full object-cover" />
-          <span className="font-heading text-lg md:text-xl font-semibold text-gradient-saffron">
-            Satsang OUTR
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-3 group" aria-label={`${siteConfig.name} — Home`}>
+          <img
+            src={logo}
+            alt="Satsang OUTR logo"
+            className="w-10 h-10 rounded-full object-cover ring-2 ring-[hsl(var(--brand-primary)/0.4)] group-hover:ring-[hsl(var(--brand-primary))] transition-all"
+          />
+          <span className="font-heading text-lg font-bold text-gradient-saffron hidden sm:block">
+            {siteConfig.name}
           </span>
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-1">
+        {/* Desktop nav */}
+        <div className="hidden lg:flex items-center gap-1">
           {navItems.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                location.pathname === item.to
-                  ? "bg-saffron-light text-saffron-dark"
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+              className={`relative px-3 py-2 text-sm font-medium transition-colors rounded-md ${
+                isActive(item.to)
+                  ? 'text-[hsl(var(--brand-primary))]'
+                  : 'text-[hsl(var(--foreground)/0.7)] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--brand-secondary-light)/0.5)]'
               }`}
             >
               {item.label}
+              {/* Gold underline for active */}
+              {isActive(item.to) && (
+                <motion.span
+                  layoutId="nav-active-indicator"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
+                  style={{ background: 'hsl(var(--brand-primary))' }}
+                />
+              )}
             </Link>
           ))}
           <a
-            href="https://www.satsang.org.in/home"
+            href={socialLinks.officialWebsite}
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-2 px-4 py-2 rounded-md text-sm font-medium bg-saffron-gradient text-primary-foreground hover:opacity-90 transition-opacity"
+            className="ml-3 px-4 py-2 rounded-md text-sm font-semibold border border-[hsl(var(--brand-primary))] text-[hsl(var(--brand-primary))] hover:bg-saffron-gradient hover:text-[hsl(var(--brand-secondary-dark))] transition-all"
           >
             Official Website
           </a>
         </div>
 
-        {/* Mobile toggle */}
+        {/* Mobile hamburger */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden p-2 text-foreground"
-          aria-label="Toggle menu"
+          className="lg:hidden p-2 text-foreground rounded-md hover:bg-[hsl(var(--brand-secondary-light)/0.5)] transition-colors"
+          aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={open}
         >
-          {open ? <X size={24} /> : <Menu size={24} />}
+          {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
-      {/* Mobile Nav */}
+      {/* Mobile drawer */}
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
+            animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="md:hidden overflow-hidden bg-card border-b border-saffron"
+            transition={{ duration: 0.25 }}
+            className="lg:hidden overflow-hidden border-b border-[hsl(var(--brand-secondary-light))]"
+            style={{ background: 'hsl(var(--brand-secondary-dark))' }}
           >
-            <div className="px-4 py-3 flex flex-col gap-1">
+            <div className="px-4 py-4 flex flex-col gap-1">
               {navItems.map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
                   onClick={() => setOpen(false)}
                   className={`px-4 py-3 rounded-md text-sm font-medium transition-colors ${
-                    location.pathname === item.to
-                      ? "bg-saffron-light text-saffron-dark"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                    isActive(item.to)
+                      ? 'text-[hsl(var(--brand-primary))] bg-[hsl(var(--brand-secondary-light)/0.5)]'
+                      : 'text-[hsl(var(--foreground)/0.8)] hover:text-foreground hover:bg-[hsl(var(--brand-secondary-light)/0.3)]'
                   }`}
                 >
                   {item.label}
                 </Link>
               ))}
               <a
-                href="https://www.satsang.org.in/home"
+                href={socialLinks.officialWebsite}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-3 rounded-md text-sm font-medium bg-saffron-gradient text-primary-foreground text-center"
+                className="mt-2 px-4 py-3 rounded-md text-sm font-semibold text-center border border-[hsl(var(--brand-primary))] text-[hsl(var(--brand-primary))]"
               >
-                Official Website
+                Official Website ↗
               </a>
             </div>
           </motion.div>
