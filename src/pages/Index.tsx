@@ -10,7 +10,7 @@ import { ArrowRight, ExternalLink } from 'lucide-react';
 
 import Layout from '@/components/Layout';
 import UpcomingEventCard from '@/components/UpcomingEventCard';
-import { GoldDivider, SectionHeading, SaffronBadge } from '@/components/shared/elements';
+import { GoldDivider, SectionHeading } from '@/components/shared/elements';
 import { AnimatedSection } from '@/components/shared/sections';
 
 import { galleryImages } from '@/data/gallery.data';

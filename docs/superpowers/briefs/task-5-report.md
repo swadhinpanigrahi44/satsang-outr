@@ -35,4 +35,4 @@ COMPLETE — TypeScript clean (0 errors)
 - Only 3 images in `galleryImages` have `featured: true` (`outr-group`, `dsc-6024`, `seminar-group`), so the gallery grid will show only 3 tiles on the home page. More can be added by setting `featured: true` in `src/data/gallery.data.ts`.
 
 ## Commit Hash
-(see below after commit)
+`f21ced2`
