@@ -2,6 +2,8 @@
 // Events page — two sections:
 //   1. Upcoming events grid (Webinar, Satyanusarana, Meetups) — add to src/data/event-cards.data.ts
 //   2. Career Counselling Seminar 2026 detail — data in src/features/events/data/events.data.ts
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import Layout from '@/components/Layout';
 import { GoldDivider, SectionHeading, SaffronBadge, AnimatedSection } from '@/components/shared/elements';
 import EventCard from '@/features/events/components/EventCard';
@@ -95,6 +97,19 @@ const Events = () => {
               ))}
             </div>
           </AnimatedSection>
+
+          {/* Link to Event Reports page */}
+          <div className="text-center mt-16 pt-8 border-t border-[hsl(var(--border))]">
+            <p className="text-[hsl(var(--muted-foreground))] mb-4 text-sm">
+              Looking for past event summaries and photo galleries?
+            </p>
+            <Link
+              to="/events/reports"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[hsl(var(--brand-primary))] text-[hsl(var(--brand-primary))] font-semibold hover:bg-saffron-gradient hover:text-[hsl(var(--brand-secondary-dark))] transition-all"
+            >
+              View Event Reports & Gallery <ArrowRight size={16} />
+            </Link>
+          </div>
 
         </div>
       </section>
