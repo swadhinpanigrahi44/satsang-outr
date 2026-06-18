@@ -12,8 +12,9 @@ import Layout from '@/components/Layout';
 import UpcomingEventCard from '@/components/UpcomingEventCard';
 import { GoldDivider, SectionHeading } from '@/components/shared/elements';
 import { AnimatedSection } from '@/components/shared/sections';
+import InteractiveBentoGallery from '@/components/ui/interactive-bento-gallery';
 
-import { galleryImages } from '@/data/gallery.data';
+import { communityBentoItems } from '@/data/community-gallery.data';
 import { socialLinks } from '@/data/social-links';
 
 import outrGroup from '@/assets/outr-group.png';
@@ -34,8 +35,6 @@ const Index = () => {
     }, 4000);
     return () => clearInterval(interval);
   }, []);
-
-  const featuredImages = galleryImages.filter((img) => img.featured).slice(0, 8);
 
   return (
     <Layout>
@@ -148,32 +147,19 @@ const Index = () => {
 
       <GoldDivider />
 
-      {/* === SECTION 6: Community Gallery Preview === */}
-      {/* Add new images by editing src/data/gallery.data.ts — no changes needed here */}
+      {/* === SECTION 6: Community Gallery (Bento) === */}
+      {/* To change hover names/descriptions: edit src/data/community-gallery.data.ts */}
       <section style={{ background: 'hsl(var(--background))' }} className="py-20">
         <div className="container mx-auto px-4">
           <AnimatedSection className="mb-10">
             <SectionHeading
               title="Our Community"
               highlight="Community"
-              subtitle="Moments of togetherness, learning, and spiritual growth."
+              subtitle="Hover over any photo to see its story. Click to explore. Drag to rearrange."
               centered
             />
           </AnimatedSection>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 max-w-5xl mx-auto">
-            {featuredImages.map((img, i) => (
-              <AnimatedSection key={img.id} delay={i * 0.06}>
-                <div className="aspect-square overflow-hidden rounded-lg ring-1 ring-[hsl(var(--brand-primary)/0.15)]">
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
+          <InteractiveBentoGallery mediaItems={communityBentoItems} />
           <div className="text-center mt-10">
             <Link
               to="/gallery"

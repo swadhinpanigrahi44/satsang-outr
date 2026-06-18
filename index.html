@@ -29,6 +29,13 @@
 </head>
 
 <body>
+  <!-- Apply saved theme before React mounts to prevent flash -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || 'dark';
+      document.documentElement.classList.toggle('dark', t === 'dark');
+    })();
+  </script>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
 </body>
