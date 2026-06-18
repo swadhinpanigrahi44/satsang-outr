@@ -1,5 +1,65 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Node / Package managers
+# ─────────────────────────────────────────────────────────────────────────────
+node_modules/          # All installed npm packages — never commit, always install
+.npm/                  # npm cache
+.pnpm-store/           # pnpm content-addressable store
+.yarn/cache            # Yarn cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Build output
+# ─────────────────────────────────────────────────────────────────────────────
+dist/                  # Vite production build
+dist-ssr/              # Vite SSR build
+build/                 # Generic build output
+coverage/              # Vitest / Jest coverage reports
+*.local                # Vite local override files
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Environment & secrets — NEVER commit these
+# ─────────────────────────────────────────────────────────────────────────────
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env.*
+
+# ─────────────────────────────────────────────────────────────────────────────
+# IDE & editor
+# ─────────────────────────────────────────────────────────────────────────────
+.vscode/*              # VS Code workspace settings
+!.vscode/extensions.json   # Exception: extension recommendations are useful to share
+.idea/                 # JetBrains IDE settings
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Operating system
+# ─────────────────────────────────────────────────────────────────────────────
+.DS_Store              # macOS finder metadata
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db             # Windows thumbnail cache
+desktop.ini
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Logs
-logs
+# ─────────────────────────────────────────────────────────────────────────────
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,18 +67,24 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# ─────────────────────────────────────────────────────────────────────────────
+# AI tooling — metadata, sessions, prompts, memory
+# ─────────────────────────────────────────────────────────────────────────────
+.claude/
+.claude-code/
+CLAUDE.md
+claude.md
+.cursor/
+.cursorrules
+.windsurf/
+.copilot/
+.github/copilot/
+.ai/
+.prompts/
+.sessions/
+.memory/
+.logs/
+.instructions/
+docs/superpowers/
+lovable-uploads/
+*.ai-metadata
