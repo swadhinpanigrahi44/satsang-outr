@@ -109,7 +109,7 @@ const Footer = () => {
       <GoldDivider />
       <div className="container mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[hsl(var(--foreground)/0.4)]">
         <p>© 2026 {siteConfig.name}. All rights reserved.</p>
-        <p>Built with devotion for character building &amp; collective upliftment.</p>
+        <p>Built with devotion for character building & collective upliftment.</p>
       </div>
     </footer>
   );
