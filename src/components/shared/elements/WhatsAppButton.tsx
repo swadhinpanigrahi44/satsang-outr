@@ -15,8 +15,8 @@ const WhatsAppButton = () => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with Satsang OUTR on WhatsApp"
-      className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full shadow-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-green-400 focus-visible:ring-offset-2"
-      style={{ backgroundColor: '#25D366' }}
+      className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full shadow-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-whatsapp-green focus-visible:ring-offset-2"
+      style={{ backgroundColor: 'hsl(var(--whatsapp-green))', outlineColor: 'hsl(var(--whatsapp-green) / 0.7)' }}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 1.5 }}
@@ -26,7 +26,7 @@ const WhatsAppButton = () => {
       {/* Pulse ring */}
       <motion.span
         className="absolute inset-0 rounded-full"
-        style={{ backgroundColor: '#25D366' }}
+        style={{ backgroundColor: 'hsl(var(--whatsapp-green))' }}
         animate={{ scale: [1, 1.4, 1.4], opacity: [0.7, 0, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeOut' }}
       />

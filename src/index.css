@@ -58,6 +58,7 @@
 
     /* === DECORATIVE === */
     --gold-glow: 0 4px 24px rgba(200, 134, 10, 0.25);
+    --whatsapp-green: 142 70% 49%;
 
     /* === SIDEBAR (shadcn sidebar — keep for compatibility) === */
     --sidebar-background: 215 38% 18%;
@@ -120,6 +121,11 @@
 }
 
 @layer utilities {
+  /* WhatsApp button focus ring */
+  .focus-visible\:ring-whatsapp-green:focus-visible {
+    --tw-ring-color: hsl(var(--whatsapp-green) / 0.7);
+  }
+
   /* New gold gradient utility */
   .text-gradient-gold {
     @apply bg-clip-text text-transparent;
