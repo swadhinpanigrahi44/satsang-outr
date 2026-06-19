@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 interface Testimonial {
   id: number | string
   name: string
-  avatar: string
+  avatar?: string
   description: string
 }
 
@@ -104,16 +104,11 @@ const TestimonialCarousel = React.forwardRef<
                   </div>
                 )}
 
-                <div className="p-6 flex flex-col items-center gap-4">
-                  <img
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    className="w-16 h-16 rounded-full object-cover"
-                  />
-                  <h3 className="text-lg font-semibold text-gray-800 dark:text-foreground">
+                <div className="p-6 pt-10 flex flex-col items-center gap-3 h-full justify-center">
+                  <h3 className="font-heading text-lg font-bold text-gray-800 dark:text-foreground">
                     {testimonial.name}
                   </h3>
-                  <p className="text-center text-sm text-gray-600 dark:text-muted-foreground">
+                  <p className="text-center text-sm text-gray-600 dark:text-muted-foreground leading-relaxed">
                     {testimonial.description}
                   </p>
                 </div>
