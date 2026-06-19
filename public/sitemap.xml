@@ -21,16 +21,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://satsangoutr.vercel.app/dharma</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://satsangoutr.vercel.app/edu-care</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://satsangoutr.vercel.app/gallery</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

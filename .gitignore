@@ -88,3 +88,4 @@ claude.md
 docs/superpowers/
 lovable-uploads/
 *.ai-metadata
+node_modules
