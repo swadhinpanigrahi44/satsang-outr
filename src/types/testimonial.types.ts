@@ -2,8 +2,8 @@
 export interface Testimonial {
   id: number | string;
   name: string;
-  avatar: string;
+  avatar?: string;
   description: string;
-  role?: string; // e.g. "Student, OUTR" or "Community Member"
+  role?: string;
   source?: 'instagram' | 'whatsapp' | 'direct' | 'community';
 }

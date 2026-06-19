@@ -55,6 +55,44 @@ export interface EventCard {
   location: string;
   imageUrl: string;
   ctaLabel: string;
-  ctaUrl?: string; // internal route or external link
+  ctaUrl?: string;
   status: 'upcoming' | 'ongoing' | 'past';
+}
+
+// ─── EVENT CATEGORY (for /events/:slug detail pages) ────────
+// Each category (webinar, satyanusaran, meetups) has one of these.
+// Sections render only when data is present.
+export interface EventCategoryReport {
+  title: string;
+  date: string;
+  summary: string;
+  url?: string;
+}
+
+export interface EventCategory {
+  slug: string;
+  title: string;
+  tagline: string;
+  description: string;
+  coverImage?: string;
+
+  // Lifecycle — change this field to update the entire page state
+  status: 'upcoming' | 'ongoing' | 'completed' | 'archived';
+
+  // Scheduling
+  nextDate?: string;
+  venue?: string;
+  frequency?: string;
+
+  // Sections — only rendered if array has items
+  schedule?: Session[];
+  speakers?: Speaker[];
+  gallery?: { src: string; alt: string }[];
+
+  // Registration
+  registrationUrl?: string;
+  registrationStatus: 'open' | 'closed' | 'coming-soon';
+
+  // Past event reports
+  reports?: EventCategoryReport[];
 }

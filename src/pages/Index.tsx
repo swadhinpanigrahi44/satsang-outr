@@ -1,21 +1,23 @@
 // src/pages/Index.tsx
 // Home page — entry point for satsangoutr.vercel.app
-// PRESERVE all existing text content verbatim
-// Gallery section driven by src/data/gallery.data.ts — add images there
+// Gallery section driven by src/data/community-gallery.data.ts
+// Testimonials driven by src/data/testimonials.data.ts
+// Events driven by src/features/events/data/event-registry.ts
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { ArrowRight, ExternalLink, CalendarDays, MapPin, Quote } from 'lucide-react';
 
 import Layout from '@/components/Layout';
-import UpcomingEventCard from '@/components/UpcomingEventCard';
-import { GoldDivider, SectionHeading } from '@/components/shared/elements';
+import { GoldDivider, SectionHeading, SaffronBadge } from '@/components/shared/elements';
 import { AnimatedSection } from '@/components/shared/sections';
 import InteractiveBentoGallery from '@/components/ui/interactive-bento-gallery';
 
 import { communityBentoItems } from '@/data/community-gallery.data';
 import { socialLinks } from '@/data/social-links';
+import { testimonials } from '@/data/testimonials.data';
+import { eventCategories } from '@/features/events/data/event-registry';
 
 import outrGroup from '@/assets/outr-group.png';
 import statueClose from '@/assets/statue-close.png';
@@ -23,8 +25,9 @@ import dsc6024 from '@/assets/dsc-6024.jpeg';
 import whiteGroup from '@/assets/white-group.jpeg';
 import statueClose1 from '@/assets/whatsapp-2026-03-12.jpeg';
 
-// Hero gallery images — 4-second auto-crossfade
 const heroImages = [outrGroup, statueClose1, dsc6024, whiteGroup];
+const feedbackPreview = testimonials.slice(0, 3);
+const upcomingEvents = eventCategories.filter(e => e.status !== 'archived');
 
 const Index = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -53,12 +56,10 @@ const Index = () => {
               loading={i === 0 ? 'eager' : 'lazy'}
             />
           ))}
-          {/* Bottom gradient fade into page bg */}
           <div
             className="absolute inset-x-0 bottom-0 h-32 pointer-events-none"
             style={{ background: 'linear-gradient(to top, hsl(var(--background)), transparent)' }}
           />
-          {/* Dot indicators */}
           <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
             {heroImages.map((_, i) => (
               <button
@@ -118,8 +119,70 @@ const Index = () => {
 
       <GoldDivider />
 
-      {/* === SECTION 4: Upcoming Events === */}
-      <UpcomingEventCard />
+      {/* === SECTION 4: Upcoming Events Notice === */}
+      <section style={{ background: 'hsl(var(--background))' }} className="py-20">
+        <div className="container mx-auto px-4">
+          <AnimatedSection className="mb-10">
+            <SectionHeading
+              title="Upcoming Events"
+              highlight="Events"
+              subtitle="Stay connected — join our webinars, discourses, and community activities."
+              centered
+            />
+          </AnimatedSection>
+
+          <div className="max-w-4xl mx-auto space-y-4">
+            {upcomingEvents.map((event, i) => (
+              <AnimatedSection key={event.slug} delay={i * 0.08}>
+                <Link
+                  to={`/events/${event.slug}`}
+                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-5 rounded-xl border border-[hsl(var(--brand-primary)/0.15)] bg-[hsl(var(--brand-secondary)/0.3)] hover:border-[hsl(var(--brand-primary)/0.4)] hover:bg-[hsl(var(--brand-secondary)/0.5)] transition-all duration-200 group"
+                >
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <SaffronBadge variant="outline">
+                        {event.status === 'ongoing' ? 'Live Now' : 'Upcoming'}
+                      </SaffronBadge>
+                      {event.frequency && (
+                        <span className="text-[hsl(var(--muted-foreground))] text-xs">{event.frequency}</span>
+                      )}
+                    </div>
+                    <h3 className="font-heading text-lg font-bold text-foreground group-hover:text-[hsl(var(--brand-primary))] transition-colors">
+                      {event.title}
+                    </h3>
+                    <div className="flex flex-wrap gap-3 mt-1.5 text-xs text-[hsl(var(--muted-foreground))]">
+                      {event.nextDate && (
+                        <span className="flex items-center gap-1">
+                          <CalendarDays size={12} className="text-[hsl(var(--brand-primary))]" />
+                          {event.nextDate}
+                        </span>
+                      )}
+                      {event.venue && (
+                        <span className="flex items-center gap-1">
+                          <MapPin size={12} className="text-[hsl(var(--brand-primary))]" />
+                          {event.venue}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <span className="flex items-center gap-1 text-[hsl(var(--brand-primary))] text-sm font-semibold group-hover:gap-2 transition-all flex-shrink-0">
+                    View Details <ArrowRight size={14} />
+                  </span>
+                </Link>
+              </AnimatedSection>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <Link
+              to="/events"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[hsl(var(--brand-primary))] text-[hsl(var(--brand-primary))] font-semibold hover:bg-saffron-gradient hover:text-[hsl(var(--brand-secondary-dark))] transition-all"
+            >
+              View All Events <ArrowRight size={16} />
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <GoldDivider />
 
@@ -147,8 +210,54 @@ const Index = () => {
 
       <GoldDivider />
 
-      {/* === SECTION 6: Community Gallery (Bento) === */}
-      {/* To change hover names/descriptions: edit src/data/community-gallery.data.ts */}
+      {/* === SECTION 6: Feedback Preview === */}
+      <section style={{ background: 'hsl(var(--background))' }} className="py-20">
+        <div className="container mx-auto px-4">
+          <AnimatedSection className="mb-10">
+            <SectionHeading
+              title="Community Voices"
+              highlight="Voices"
+              subtitle="Words from those whose lives have been touched by Satsang OUTR."
+              centered
+            />
+          </AnimatedSection>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {feedbackPreview.map((t, i) => (
+              <AnimatedSection key={t.id} delay={i * 0.08}>
+                <div
+                  className="p-6 rounded-2xl border border-[hsl(var(--brand-primary)/0.15)] h-full flex flex-col gap-4"
+                  style={{ background: 'hsl(var(--brand-secondary)/0.4)' }}
+                >
+                  <Quote size={20} className="text-[hsl(var(--brand-primary)/0.4)]" />
+                  <p className="text-[hsl(var(--muted-foreground))] text-sm leading-relaxed flex-1">
+                    "{t.description}"
+                  </p>
+                  <div>
+                    <p className="font-heading text-sm font-bold text-foreground">{t.name}</p>
+                    {t.role && (
+                      <p className="text-[hsl(var(--muted-foreground))] text-xs">{t.role}</p>
+                    )}
+                  </div>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link
+              to="/testimonials"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[hsl(var(--brand-primary))] text-[hsl(var(--brand-primary))] font-semibold hover:bg-saffron-gradient hover:text-[hsl(var(--brand-secondary-dark))] transition-all"
+            >
+              View All Testimonials <ArrowRight size={16} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <GoldDivider />
+
+      {/* === SECTION 7: Community Gallery (Bento) === */}
       <section style={{ background: 'hsl(var(--background))' }} className="py-20">
         <div className="container mx-auto px-4">
           <AnimatedSection className="mb-10">

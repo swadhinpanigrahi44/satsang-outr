@@ -1,10 +1,10 @@
 // src/pages/Contact.tsx
-// Contact page — form uses react-hook-form + zod validation
-// Contact info: satsangoutr@gmail.com / Instagram: @satsang_outr
+// Contact page — form + Connect With Us section
+// Contact info and social links: src/data/social-links.ts
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Mail, MapPin, Instagram } from 'lucide-react';
+import { Mail, MapPin, Instagram, MessageCircle, Users } from 'lucide-react';
 import Layout from '@/components/Layout';
 import { GoldDivider, SectionHeading, AnimatedSection, SpiritualCard } from '@/components/shared/elements';
 import { socialLinks } from '@/data/social-links';
@@ -30,7 +30,6 @@ const Contact = () => {
   } = useForm<ContactFormValues>({ resolver: zodResolver(contactSchema) });
 
   const onSubmit = async (data: ContactFormValues) => {
-    // Opens mail client with pre-filled content
     const mailto = `mailto:${socialLinks.email}?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(`Name: ${data.name}\nEmail: ${data.email}\n\n${data.message}`)}`;
     window.location.href = mailto;
     reset();
@@ -105,6 +104,46 @@ const Contact = () => {
                     </button>
                   </form>
                 )}
+              </SpiritualCard>
+            </AnimatedSection>
+
+            <GoldDivider className="my-12" />
+
+            {/* ── Connect With Us ── */}
+            <AnimatedSection delay={0.15}>
+              <SpiritualCard variant="dark" className="rounded-xl text-center">
+                <div className="flex justify-center mb-4">
+                  <Users size={32} className="text-[hsl(var(--brand-primary))]" />
+                </div>
+                <h2 className="font-heading text-2xl font-bold mb-2 text-foreground">Connect With Us</h2>
+                <p className="text-[hsl(var(--muted-foreground))] text-sm mb-8 max-w-md mx-auto">
+                  New to our Satsangee Parivar? You're welcome here.
+                </p>
+
+                <div className="grid sm:grid-cols-2 gap-4 max-w-lg mx-auto">
+                  <a
+                    href={socialLinks.whatsappNewJoiners}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center gap-3 p-5 rounded-xl border border-[hsl(var(--brand-primary)/0.2)] bg-[hsl(var(--brand-secondary)/0.4)] hover:border-[hsl(var(--brand-primary)/0.5)] transition-all"
+                  >
+                    <MessageCircle size={24} className="text-[hsl(var(--whatsapp-green))]" />
+                    <div>
+                      <p className="font-heading text-sm font-bold text-foreground">WhatsApp Group</p>
+                      <p className="text-[hsl(var(--muted-foreground))] text-xs mt-1">Join our community group</p>
+                    </div>
+                  </a>
+
+                  <div className="flex flex-col items-center gap-3 p-5 rounded-xl border border-[hsl(var(--brand-primary)/0.2)] bg-[hsl(var(--brand-secondary)/0.4)]">
+                    <Mail size={24} className="text-[hsl(var(--brand-primary))]" />
+                    <div>
+                      <p className="font-heading text-sm font-bold text-foreground">For New Joiners</p>
+                      <p className="text-[hsl(var(--muted-foreground))] text-xs mt-1">
+                        Contact — {socialLinks.newJoinerContact}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </SpiritualCard>
             </AnimatedSection>
 

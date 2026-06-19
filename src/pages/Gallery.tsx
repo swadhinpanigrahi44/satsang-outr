@@ -1,7 +1,7 @@
 // src/pages/Gallery.tsx
 // Full gallery page — all images from src/data/gallery.data.ts
 // Add new images there; no component changes needed
-// Category filter: All / Group / Seminar / Events / Statues
+// Categories: Seminar | Satyanusaran | Webinar | Volunteering | Community | Statues
 
 import { useState } from 'react';
 import Layout from '@/components/Layout';
@@ -9,10 +9,8 @@ import { SectionHeading, GoldDivider, AnimatedSection } from '@/components/share
 import { galleryImages } from '@/data/gallery.data';
 import type { GalleryImage } from '@/types/gallery.types';
 
-// Derive unique categories from the data
 const ALL_CATEGORIES = ['All', ...Array.from(new Set(galleryImages.filter(img => img.category).map(img => img.category!)))];
 
-// Capitalize first letter for display
 const formatCategory = (cat: string) => cat.charAt(0).toUpperCase() + cat.slice(1);
 
 const Gallery = () => {
@@ -57,19 +55,19 @@ const Gallery = () => {
             ))}
           </AnimatedSection>
 
-          {/* Responsive grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {/* 16:9 responsive grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtered.map((img, i) => (
               <AnimatedSection
                 key={img.id}
                 delay={Math.min(i * 0.05, 0.4)}
                 className="group"
               >
-                <div className="aspect-square overflow-hidden rounded-xl ring-1 ring-[hsl(var(--brand-primary)/0.2)] hover:ring-[hsl(var(--brand-primary)/0.6)] transition-all duration-300">
+                <div className="aspect-video overflow-hidden rounded-xl ring-1 ring-[hsl(var(--brand-primary)/0.2)] hover:ring-[hsl(var(--brand-primary)/0.6)] transition-all duration-300">
                   <img
                     src={img.src}
                     alt={img.alt}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                     decoding="async"
                   />
@@ -78,7 +76,6 @@ const Gallery = () => {
             ))}
           </div>
 
-          {/* Empty state */}
           {filtered.length === 0 && (
             <div className="text-center py-20 text-[hsl(var(--muted-foreground))]">
               No images in this category yet.
